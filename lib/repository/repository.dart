@@ -4,7 +4,7 @@ import '../model/article_response.dart';
 
 class NewsRepository {
   static String mainUrl = "https://newsapi.org/v2/";
-  final String apiKey = "[API KEY]";
+  final String apiKey = "{API KEY}";
 
   final Dio _dio = Dio();
 
@@ -15,7 +15,8 @@ class NewsRepository {
     var params = {
       "country": "us",
       "category": "technology",
-      "apiKey": apiKey
+      "apiKey": apiKey,
+      "language": "en"
     };
 
     try{
@@ -30,7 +31,8 @@ class NewsRepository {
     var params = {
       "apiKey": apiKey,
       "q": "programming",
-      "sortBy": "publishedAt"
+      "sortBy": "publishedAt",
+      "language": "en"
     };
 
     try{
@@ -41,10 +43,28 @@ class NewsRepository {
     }
   }
 
+  Future<ArticleResponse> getNewsByCategory(String category) async {
+    var params = {
+      "apiKey": apiKey,
+      "category": category,
+      "sortBy": "publishedAt",
+      "language": "en"
+    };
+
+    try{
+      Response response = await _dio.get(topHeadlinesUrl, queryParameters: params);
+      return ArticleResponse.fromJson(response.data);
+    } catch(error) {
+      return ArticleResponse.withError("$error");
+    }
+  }
+
   Future<ArticleResponse> searchArticle(String searchValue) async {
     var params = {
       "apiKey": apiKey,
-      "q": searchValue
+      "q": searchValue,
+      "sortBy": "publishedAt",
+      "language": "en"
     };
 
     try{

@@ -1,6 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:newsify/bloc/bottom_navbar_bloc.dart';
+import 'package:newsify/screens/tabs/categories_screen.dart';
 import 'package:newsify/screens/tabs/home_screen.dart';
 import 'package:newsify/screens/tabs/search_screen.dart';
 import 'package:newsify/style/theme.dart' as style;
@@ -26,7 +27,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50.0),
+        preferredSize: const Size.fromHeight(60.0),
         child: AppBar(
           backgroundColor: style.Colors.mainColor,
           title: const Text("Newsify", style: TextStyle(
@@ -43,6 +44,8 @@ class _MainScreenState extends State<MainScreen> {
             switch (snapshot.data) {
               case NavBarItem.HOME:
                 return const HomeScreen();
+              case NavBarItem.CATEGORIES:
+                return const CategoriesScreen();
               case NavBarItem.SEARCH:
                 return const SearchScreen();
               default:
@@ -87,6 +90,17 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                   BottomNavigationBarItem(
+                    label: "Categories",
+                    icon:  Padding(
+                      padding: EdgeInsets.only(bottom: 5.0),
+                      child: Icon(EvaIcons.gridOutline),
+                    ),
+                    activeIcon: Padding(
+                      padding: EdgeInsets.only(bottom: 5.0),
+                      child: Icon(EvaIcons.grid),
+                    ),
+                  ),
+                  BottomNavigationBarItem(
                     label: "Search",
                     icon:  Padding(
                       padding: EdgeInsets.only(bottom: 5.0),
@@ -102,20 +116,6 @@ class _MainScreenState extends State<MainScreen> {
             ),
           );
         },
-      ),
-    );
-  }
-
-  Widget testScreen() {
-    return Container(
-      color: Colors.white,
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: const <Widget>[
-          Text("Test Screen")
-        ],
       ),
     );
   }

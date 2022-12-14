@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:newsify/model/article.dart';
 import 'package:newsify/style/theme.dart' as style;
 import 'package:url_launcher/url_launcher.dart';
@@ -42,23 +41,37 @@ class _NewsDetailsState extends State<NewsDetails> {
           ),
         ),
       ),
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: style.Colors.mainColor,
-        title: Text(
-          article.title.toString(),
-          style: const TextStyle(
-            fontSize: 15.0,
-            color: Colors.white,
-            fontWeight: FontWeight.bold
-          ),
+      appBar:PreferredSize(
+        preferredSize: const Size.fromHeight(60.0),
+        child: AppBar(
+            iconTheme: const IconThemeData(
+              color: Colors.white,
+            ),
+            centerTitle: false,
+            elevation: 0.0,
+            backgroundColor: style.Colors.mainColor,
+            title: Text(
+              article.title.toString(),
+            )
         ),
       ),
       body: ListView(
         children: [
           AspectRatio(
             aspectRatio: 16/9,
-            child: FadeInImage.assetNetwork(placeholder: "placeholder", image: article.img.toString(), fit: BoxFit.cover,),
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(5.0),
+                      topRight: Radius.circular(5.0)
+                  ),
+                  image: DecorationImage(
+                      image: article.img == null ? const AssetImage("assets/placeholder.png") as ImageProvider : NetworkImage(
+                          article.img.toString()),
+                      fit: BoxFit.cover
+                  )
+              ),
+            ),
           ),
           Container(
             padding: const EdgeInsets.all(20.0),

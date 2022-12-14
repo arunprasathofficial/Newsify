@@ -29,7 +29,7 @@ class _HotNewsState extends State<HotNews> {
       builder: (context, AsyncSnapshot<ArticleResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data?.error != null && snapshot.data!.error.isNotEmpty) {
-            return buildErrorWidget(snapshot.data!.error);
+            return Container();
           }
           return _buildHotNews(snapshot.requireData);
         } else if (snapshot.hasError) {
@@ -104,7 +104,7 @@ class _HotNewsState extends State<HotNews> {
                                 topRight: Radius.circular(5.0)
                             ),
                             image: DecorationImage(
-                              image: articles[index].img == null ? AssetImage("") as ImageProvider : NetworkImage(
+                              image: articles[index].img == null ? const AssetImage("assets/placeholder.png") as ImageProvider : NetworkImage(
                                   articles[index].img.toString()),
                               fit: BoxFit.cover
                             )

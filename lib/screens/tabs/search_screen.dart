@@ -90,7 +90,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   snapshot.data!.error.isNotEmpty) {
                 return Container();
               }
-              return _buildSourceNewsWidget(snapshot.requireData);
+              return _buildSearchNewsWidget(snapshot.requireData);
             } else if (snapshot.hasError) {
               return Container();
             } else {
@@ -102,7 +102,7 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Widget _buildSourceNewsWidget(ArticleResponse data) {
+  Widget _buildSearchNewsWidget(ArticleResponse data) {
     List<ArticleModel> articles = data.articles;
 
     if (articles.isEmpty) {
@@ -181,18 +181,23 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                     ),
                     Container(
-                        padding: const EdgeInsets.only(right: 10.0),
-                        width: MediaQuery.of(context).size.width * 2 / 5,
-                        height: 130,
-                        child: FadeInImage.assetNetwork(
-                            alignment: Alignment.topCenter,
-                            placeholder: "assets/placeholder.png",
-                            image: articles[index].img.toString().isEmpty
-                                ? "http://to-let.com.bd/operator/images/noimage.png"
-                                : articles[index].img.toString(),
-                            fit: BoxFit.fitHeight,
-                            width: double.maxFinite,
-                            height: MediaQuery.of(context).size.height * 1 / 3))
+                      padding: const EdgeInsets.only(right: 10.0),
+                      width: MediaQuery.of(context).size.width * 2 / 5,
+                      height: 130,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(5.0),
+                                topRight: Radius.circular(5.0)
+                            ),
+                            image: DecorationImage(
+                                image: articles[index].img == null ? AssetImage("") as ImageProvider : NetworkImage(
+                                    articles[index].img.toString()),
+                                fit: BoxFit.cover
+                            )
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

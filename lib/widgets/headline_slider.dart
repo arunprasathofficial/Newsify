@@ -29,7 +29,7 @@ class _HeadlinesSliderWidgetState extends State<HeadlinesSliderWidget> {
       builder: (context, AsyncSnapshot<ArticleResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data?.error != null && snapshot.data!.error.isNotEmpty) {
-            return buildErrorWidget(snapshot.data!.error);
+            return Container();
           }
           return _buildHeadlineSliderWidget(snapshot.requireData);
         } else if (snapshot.hasError) {
@@ -46,6 +46,7 @@ class _HeadlinesSliderWidgetState extends State<HeadlinesSliderWidget> {
     return Container(
       child: CarouselSlider(
         options: CarouselOptions(
+            autoPlay: true,
             enlargeCenterPage: false,
             height: 200.0,
             viewportFraction: 0.9
