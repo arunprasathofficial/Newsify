@@ -4,7 +4,7 @@ import '../model/article_response.dart';
 
 class NewsRepository {
   static String mainUrl = "https://newsapi.org/v2/";
-  final String apiKey = "{API KEY}";
+  final String apiKey = "6b90c6400c6e4142af7c4899d73315c4";
 
   final Dio _dio = Dio();
 
